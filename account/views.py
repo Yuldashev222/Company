@@ -70,6 +70,7 @@ def registration(request):
 
 def profile_employee(request, url):
     employee = Employee.objects.get(url=url)
+
     user_form = EmployeeForm(instance=employee)
 
     posts = Post.objects.filter(author=employee)
@@ -114,6 +115,8 @@ def profile_employee(request, url):
 
     context = {
         'user': employee,
+        'user_for_companies': employee.user,
+
 
         'posts': posts,
         'products': products,
@@ -131,22 +134,32 @@ def profile_employee(request, url):
 
 def profile_user(request, username):
     user = User.objects.get(username=username)
-    
+
     user_form = UserForm(instance=user)
+    add_company_form = CompanyForm()        
 
     if request.POST:
         user_form = UserForm(request.POST or None, request.FILES or None, instance=user)
+        add_company_form = CompanyForm(request.POST or None, request.FILES or None)
 
         if user_form.is_valid():
             obj = user_form.save(commit=False)
+            obj.save()
+
+        if add_company_form.is_valid():
+            obj = add_company_form.save(commit=False)
+            obj.author = request.user
             obj.save()
 
             return redirect('profile_user', username)
 
     context = {
         'user': user,
+        'user_for_companies': user,
+
         'user_form': user_form,
-    }
+        'add_company_form': add_company_form,
+    }        
 
 
     return render(request, 'profile.html', context)

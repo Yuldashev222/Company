@@ -33,6 +33,8 @@ class Company(models.Model):
     city = models.CharField(max_length=300)
     state = models.CharField(max_length=300)
     url = models.SlugField(max_length=200, unique=True)
+    date_created = models.DateTimeField(auto_now=True)
+    date_updated = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.company_name
