@@ -110,8 +110,8 @@
                       <button>add Company</button>
                     </form>
                   </div>
+                </div>
               </div>
-            </div>
 
 
             <div class="col-sm-7">
@@ -179,8 +179,8 @@
               <div class="col-sm-7" style="position: absolute; left: -500px; top: 400px; width: 400px;">
                 <div class="panel panel-white border-top-green">
                   <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa-solid fa-user"></i>My Companies {{ user_for_companies.companies.all.count }} ta</h3>
-                    <div class="controls pull-right">
+                      <h3 class="panel-title"><i class="fa-solid fa-user"></i>My Companies {{ user_for_companies.companies.all.count }} ta</h3>
+                      <div class="controls pull-right">
                         <span class="pull-right clickable">
                           <i class="fa fa-chevron-up"></i>
                         </span>
@@ -191,7 +191,13 @@
                           <hr>
                           <div class="body-section">
                             <p class="section-content"><span style="font-weight: 600; font-size: 17px">name</span> {{company.company_name}}</p>
-                            <p class="section-content"><span style="font-weight: 600; font-size: 17px">category</span> {{company.category}}</p>
+                            {% if user.employee %}
+                              <a href="{% url 'delete_company' company.url %}"><button>Delete</button></a>
+                            {% else %}
+                              <a href="{% url 'delete_company' company.url %}"><button>Delete</button></a>
+                            {% endif %}
+                            <a href="{% url 'edit_company' company.url %}"><button>Edit</button></a>
+                            <!-- <p class="section-content"><span style="font-weight: 600; font-size: 17px">category</span> {{company.category}}</p>
                             <p class="section-content"><span style="font-weight: 600; font-size: 17px">info</span> {{company.info}}</p>
                             {% if company.logo %}
                               <p class="section-content"><span style="font-weight: 600; font-size: 17px">Logo</span><img width="40" src="{{company.logo.url}}" ></p>
@@ -206,23 +212,11 @@
                             <p class="section-content"><span style="font-weight: 600; font-size: 17px">state</span> {{company.state}}</p>
                             <p class="section-content"><span style="font-weight: 600; font-size: 17px">street</span> {{company.street}}</p>
                             <p class="section-content"><span style="font-weight: 600; font-size: 17px">date created</span> {{company.date_created}}</p>
-                            <p class="section-content"><span style="font-weight: 600; font-size: 17px">date updated</span> {{company.date_updated}}</p>
-                          </div>
-                            {% for image in company.images.all %}
-                              <img src="{{ image.url }}" alt="">  
-                            {% endfor %}
-                          </div>
-                          <!-- <div class="body-section">
-                            <h5 class="section-heading">(Username)</h5>
-                            <p class="section-content">---- (Comment ...)</p>
-                          </div>
-                          <input type="text" style="width: 100%;" placeholder="Write a comment"> -->
+                            <p class="section-content"><span style="font-weight: 600; font-size: 17px">date updated</span> {{company.date_updated}}</p> -->
                         </div>
                         <hr>
                       {% endfor %}                  
                   </div>
-
-
                 </div>
               </div>
             {% endif %}

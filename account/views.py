@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import authenticate
 
-from .forms import EmployeeForm, UserForm, UserRegistrationForm
+from .forms import EmployeeForm, UserForm, UserRegistrationForm, AddEmployeeForm
 from post.forms import PostForm
 from post.models import Post
 from product.forms import ProductForm
@@ -79,6 +79,7 @@ def profile_employee(request, url):
     add_post_form = PostForm()
     add_product_form = ProductForm()
     add_company_form = CompanyForm()
+    add_employee_form = AddEmployeeForm()
 
     if request.POST:
         user_form = EmployeeForm(request.POST or None, request.FILES or None, instance=employee)
@@ -86,6 +87,7 @@ def profile_employee(request, url):
         add_post_form = PostForm(request.POST or None, request.FILES or None)
         add_product_form = ProductForm(request.POST or None, request.FILES or None)
         add_company_form = CompanyForm(request.POST or None, request.FILES or None)
+        add_employee_form = AddEmployeeForm(request.POST or None, request.FILES or None)
 
         if user_form.is_valid():
             obj = user_form.save(commit=False)
@@ -110,6 +112,10 @@ def profile_employee(request, url):
             obj.author = request.user
             obj.save()
 
+        if add_employee_form.is_valid() and add_employee_form.user != request.user:
+            obj = add_employee_form.save(commit=False)
+            obj.save()
+
             return redirect('profile_employee', url)
     
 
@@ -125,6 +131,7 @@ def profile_employee(request, url):
         'add_post_form': add_post_form,
         'add_product_form': add_product_form,
         'add_company_form': add_company_form,
+        'add_employee_form': add_employee_form,
 
     }
 
@@ -137,10 +144,12 @@ def profile_user(request, username):
 
     user_form = UserForm(instance=user)
     add_company_form = CompanyForm()        
+    add_employee_form = AddEmployeeForm()
 
     if request.POST:
         user_form = UserForm(request.POST or None, request.FILES or None, instance=user)
         add_company_form = CompanyForm(request.POST or None, request.FILES or None)
+        add_employee_form = AddEmployeeForm(request.POST or None, request.FILES or None)
 
         if user_form.is_valid():
             obj = user_form.save(commit=False)
@@ -151,6 +160,10 @@ def profile_user(request, username):
             obj.author = request.user
             obj.save()
 
+        if add_employee_form.is_valid() and add_employee_form.user != request.user:
+            obj = add_employee_form.save(commit=False)
+            obj.save()
+
             return redirect('profile_user', username)
 
     context = {
@@ -159,6 +172,7 @@ def profile_user(request, username):
 
         'user_form': user_form,
         'add_company_form': add_company_form,
+        'add_employee_form': add_employee_form,
     }        
 
 

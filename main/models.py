@@ -22,7 +22,7 @@ class Company(models.Model):
     author = models.ForeignKey(User, verbose_name='director', related_name='companies', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     logo = models.ImageField(upload_to='Company_logo/', blank=True, null=True)
-    company_name = models.CharField(max_length=200)
+    company_name = models.CharField(max_length=200, unique=True)
     info = models.TextField(blank=True, null=True)
     # tel = PhoneNumberField(blank=True, help_text='Company phone number')
     company_email = models.EmailField(max_length=200, blank=True, null=True)

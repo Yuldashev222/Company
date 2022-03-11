@@ -18,6 +18,13 @@ class EmployeeForm(ModelForm):
         fields = ['name', 'email', 'bio', 'photo', 'street', 'city', 'state']
 
 
+class AddEmployeeForm(ModelForm):
+    
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+
 class UserForm(UserChangeForm):
     
     class Meta:

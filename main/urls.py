@@ -18,4 +18,6 @@ urlpatterns = [
     path('logout/', log_out, name='logout'),
     path('profile_user/<str:username>/', profile_user, name='profile_user'),
     path('profile_employee/<slug:url>/', profile_employee, name='profile_employee'),
+    path('edit_company/<slug:url>/', edit_company, name='edit_company'),
+    path('<slug:url>/', delete_company, name='delete_company'),
 ]

@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from .models import Company
 
 def home(request):
     return render(request, 'index.html')
@@ -29,3 +31,25 @@ def contact(request):
 
 def post_single(request):
     return render(request, 'post-single.html')
+
+
+def delete_company(request, url):
+    company = Company.objects.get(url=url)
+    user = company.author
+    print(user, '//////////////////////////////////////////////////////')
+
+    company.delete()
+
+    try:
+        return redirect('profile_employee', user.employee.url)
+    
+    except:
+        return redirect('profile_user', user.username)
+
+
+
+
+def edit_company(request, url):
+    company = Company.objects.get(url=url)
+
+    return render(request, 'edit_company.html')
