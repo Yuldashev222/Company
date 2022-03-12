@@ -15,7 +15,7 @@ class Employee(models.Model):
         ('Pr', 'Product admin'),
     ]
 
-    company = models.ForeignKey('main.Company', related_name='employee', on_delete=models.CASCADE)
+    company = models.ForeignKey('main.Company', related_name='employes', on_delete=models.CASCADE)
     user = models.OneToOneField(User, related_name='employee', on_delete=models.CASCADE)
     name = models.CharField(max_length=300)
     email = models.EmailField(blank=True, null=True)
@@ -30,6 +30,8 @@ class Employee(models.Model):
     city = models.CharField(max_length=300)
     state = models.CharField(max_length=300)
     url = models.SlugField(unique=True)
+    date_created = models.DateField(auto_now=True, null=True)
+    date_updated = models.DateField(auto_now_add=True, null=True)
     
 
     def __str__(self):

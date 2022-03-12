@@ -7,4 +7,11 @@ class ProductForm(ModelForm):
 
     class Meta:
         model = Product
-        fields = ['category', 'name', 'info', 'price', 'url', ]
+        fields = ['product_category', 'name', 'product_text', 'info', 'price', 'product_url', ]
+
+
+class ImageForm(ModelForm):
+
+    class Meta:
+        model = Image
+        fields = ['image']

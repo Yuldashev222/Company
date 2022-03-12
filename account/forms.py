@@ -22,7 +22,7 @@ class AddEmployeeForm(ModelForm):
     
     class Meta:
         model = Employee
-        fields = '__all__'
+        fields = ['user', 'name', 'email', 'position', 'bio', 'photo', 'telegram_link', 'instagram_link', 'facebook_link', 'street', 'city', 'state', 'url']
 
 
 class UserForm(UserChangeForm):

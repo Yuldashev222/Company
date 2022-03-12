@@ -24,20 +24,23 @@ class Comment(models.Model):
 
 
 class Post(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    post_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     company = models.ForeignKey('main.Company', on_delete=models.CASCADE)
-    author = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=500)
-    text = models.TextField()
+    post_text = models.TextField()
     tags = TaggableManager(blank=True)
-    image = models.ImageField(upload_to='post/')
-    url = models.SlugField(unique=True)
+    post_image = models.ImageField(upload_to='post/')
+    post_url = models.SlugField(unique=True)
     date_created = models.DateField(auto_now=True)
     date_updated = models.DateField(auto_now_add=True)
 
 
     def __str__(self):
         return self.title
+
+    def get_tag_names(self):
+        return [tag.name for tag in Post.objects.get_for_object(self)]
 
 
     class Meta:

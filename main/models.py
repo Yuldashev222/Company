@@ -8,16 +8,6 @@ from category.models import *
 from account.models import *
 
 
-class Image(models.Model):
-    image = models.ImageField(upload_to='post_and_products_images/')
-    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
-
-
-    class Meta:
-        verbose_name = 'Image'
-        verbose_name_plural = 'Images'
-
-
 class Company(models.Model):
     author = models.ForeignKey(User, verbose_name='director', related_name='companies', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
