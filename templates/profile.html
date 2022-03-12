@@ -185,8 +185,8 @@
                           <i class="fa fa-chevron-up"></i>
                         </span>
                       </div>
-                      {% for company in user_for_companies.companies.all %}
-                        <div class="panel-body panel panel-white border-top-green">
+                      <div class="panel-body panel panel-white border-top-green">
+                        {% for company in user_for_companies.companies.all %}
                           {{ forloop.counter }} Company
                           <hr>
                           <div class="body-section">
@@ -213,11 +213,11 @@
                             <p class="section-content"><span style="font-weight: 600; font-size: 17px">street</span> {{company.street}}</p>
                             <p class="section-content"><span style="font-weight: 600; font-size: 17px">date created</span> {{company.date_created}}</p>
                             <p class="section-content"><span style="font-weight: 600; font-size: 17px">date updated</span> {{company.date_updated}}</p> -->
-                        </div>
-                        <hr>
-                      {% endfor %}                  
-                  </div>
+                            <hr>
+                            {% endfor %}                  
+                      </div>
                 </div>
+              </div>
               </div>
             {% endif %}
             
